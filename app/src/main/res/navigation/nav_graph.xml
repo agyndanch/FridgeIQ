@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/nav_graph"
     app:startDestination="@+id/navigation_inventory">
 
     <fragment
         android:id="@+id/navigation_inventory"
-        android:name="com.example.fridgeiq.ui.fragment.InventoryFragment"
+        android:name="com.bignerdranch.android.fridgeiq.ui.fragment.InventoryFragment"
         android:label="Inventory"
         tools:layout="@layout/fragment_inventory">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_shopping_list"
-        android:name="com.example.fridgeiq.ui.fragment.ShoppingListFragment"
+        android:name="com.bignerdranch.android.fridgeiq.ui.fragment.ShoppingListFragment"
         android:label="Shopping List"
         tools:layout="@layout/fragment_shopping_list">
         <action
@@ -30,13 +30,13 @@
 
     <fragment
         android:id="@+id/navigation_analytics"
-        android:name="com.example.fridgeiq.ui.fragment.AnalyticsFragment"
+        android:name="com.bignerdranch.android.fridgeiq.ui.fragment.AnalyticsFragment"
         android:label="Analytics"
         tools:layout="@layout/fragment_analytics" />
 
     <fragment
         android:id="@+id/addEditFoodFragment"
-        android:name="com.example.fridgeiq.ui.fragment.AddEditFoodFragment"
+        android:name="com.bignerdranch.android.fridgeiq.ui.fragment.AddEditFoodFragment"
         android:label="Add Food Item"
         tools:layout="@layout/fragment_add_edit_food">
         <argument
@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/barcodeScannerFragment"
-        android:name="com.example.fridgeiq.ui.fragment.BarcodeScannerFragment"
+        android:name="com.bignerdranch.android.fridgeiq.ui.fragment.BarcodeScannerFragment"
         android:label="Scan Barcode"
         tools:layout="@layout/fragment_barcode_scanner">
         <action
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/addEditShoppingItemFragment"
-        android:name="com.example.fridgeiq.ui.fragment.AddEditShoppingItemFragment"
+        android:name="com.bignerdranch.android.fridgeiq.ui.fragment.AddEditShoppingItemFragment"
         android:label="Add Shopping Item"
         tools:layout="@layout/fragment_add_edit_shopping_item">
         <argument

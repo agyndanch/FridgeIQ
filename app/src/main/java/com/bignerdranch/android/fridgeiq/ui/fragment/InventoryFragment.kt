@@ -69,7 +69,7 @@ class InventoryFragment : Fragment() {
         }
     }
 
-    private fun showWasteReasonDialog(foodItem: com.example.fridgeiq.data.entity.FoodItem) {
+    private fun showWasteReasonDialog(foodItem: com.bignerdranch.android.fridgeiq.data.entity.FoodItem) {
         val reasons = arrayOf("Expired", "Spoiled", "Forgot about it", "Too much", "Other")
 
         MaterialAlertDialogBuilder(requireContext())

@@ -33,7 +33,7 @@ class FoodItemAdapter(
             binding.apply {
                 textFoodName.text = foodItem.name
                 textCategory.text = foodItem.category
-                textQuantity.text = "${foodItem.quantity} ${foodItem.unit}"
+                "${foodItem.quantity} ${foodItem.unit}".also { textQuantity.text = it }
                 textStorageLocation.text = foodItem.storageLocation
 
                 val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())

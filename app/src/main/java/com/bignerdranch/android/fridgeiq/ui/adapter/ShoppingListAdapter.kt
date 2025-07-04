@@ -29,7 +29,7 @@ class ShoppingListAdapter(
             binding.apply {
                 textItemName.text = item.name
                 textCategory.text = item.category
-                textQuantity.text = "${item.quantity} ${item.unit}"
+                "${item.quantity} ${item.unit}".also { textQuantity.text = it }
 
                 checkboxPurchased.isChecked = item.isPurchased
                 checkboxPurchased.setOnCheckedChangeListener { _, isChecked ->

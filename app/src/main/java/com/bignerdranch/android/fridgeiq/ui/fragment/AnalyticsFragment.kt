@@ -64,7 +64,7 @@ class AnalyticsFragment : Fragment() {
         }
     }
 
-    private fun updateWasteChart(entries: List<com.example.fridgeiq.data.entity.WasteEntry>) {
+    private fun updateWasteChart(entries: List<com.bignerdranch.android.fridgeiq.data.entity.WasteEntry>) {
         val categoryMap = entries.groupBy { it.category }
             .mapValues { (_, items) -> items.sumOf { it.estimatedCost } }
 

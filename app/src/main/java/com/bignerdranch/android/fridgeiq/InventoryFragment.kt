@@ -1,0 +1,102 @@
+package com.bignerdranch.android.fridgeiq
+
+import android.os.Bundle
+import android.view.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bignerdranch.android.fridgeiq.databinding.FragmentInventoryBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+
+class InventoryFragment : Fragment() {
+
+    private var _binding: FragmentInventoryBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: FoodItemViewModel by viewModels()
+    private lateinit var adapter: FoodItemAdapter
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentInventoryBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupRecyclerView()
+        observeViewModel()
+        setupFab()
+    }
+
+    private fun setupRecyclerView() {
+        adapter = FoodItemAdapter(
+            onItemClick = { foodItem ->
+                val action = InventoryFragmentDirections.actionInventoryToAddEditFood(foodItem)
+                findNavController().navigate(action)
+            },
+            onMarkConsumed = { foodItem ->
+                viewModel.markAsConsumed(foodItem)
+            },
+            onMarkWasted = { foodItem ->
+                showWasteReasonDialog(foodItem)
+            }
+        )
+
+        binding.recyclerViewInventory.adapter = adapter
+        binding.recyclerViewInventory.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun observeViewModel() {
+        viewModel.allActiveFoodItems.observe(viewLifecycleOwner) { items ->
+            adapter.submitList(items)
+            binding.textEmptyState.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun setupFab() {
+        binding.fabAddFood.setOnClickListener {
+            findNavController().navigate(R.id.action_inventory_to_add_edit_food)
+        }
+    }
+
+    private fun showWasteReasonDialog(foodItem: com.example.fridgeiq.data.entity.FoodItem) {
+        val reasons = arrayOf("Expired", "Spoiled", "Forgot about it", "Too much", "Other")
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Why was this item wasted?")
+            .setItems(reasons) { _, which ->
+                viewModel.markAsWasted(foodItem, reasons[which])
+            }
+            .show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.inventory_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_scan_barcode -> {
+                findNavController().navigate(R.id.action_inventory_to_barcode_scanner)
+                true
+            }
+            R.id.action_filter -> {
+                // Show filter dialog
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

@@ -1,5 +1,5 @@
 <resources>
-    <style name="Theme.FridgeIQ" parent="Theme.Material3.DayNight.DarkActionBar">
+    <style name="Theme.FridgeIQ" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/green_primary</item>
         <item name="colorPrimaryVariant">@color/green_primary_variant</item>
         <item name="colorOnPrimary">@color/white</item>

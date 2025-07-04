@@ -8,11 +8,11 @@ plugins {
 
 android {
     namespace = "com.bignerdranch.android.fridgeiq"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.bignerdranch.android.fridgeiq"
-        minSdk = 24
+        minSdk = 32
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

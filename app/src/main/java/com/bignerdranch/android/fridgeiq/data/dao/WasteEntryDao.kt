@@ -10,9 +10,6 @@ interface WasteEntryDao {
     @Query("SELECT * FROM waste_entries ORDER BY wasteDate DESC")
     fun getAllWasteEntries(): LiveData<List<WasteEntry>>
 
-    @Query("SELECT * FROM waste_entries WHERE wasteDate >= :startDate AND wasteDate <= :endDate")
-    fun getWasteEntriesByDateRange(startDate: Date, endDate: Date): LiveData<List<WasteEntry>>
-
     @Query("SELECT SUM(estimatedCost) FROM waste_entries WHERE wasteDate >= :startDate")
     suspend fun getTotalWasteCostSince(startDate: Date): Double?
 
@@ -21,7 +18,4 @@ interface WasteEntryDao {
 
     @Insert
     suspend fun insertWasteEntry(wasteEntry: WasteEntry)
-
-    @Delete
-    suspend fun deleteWasteEntry(wasteEntry: WasteEntry)
 }

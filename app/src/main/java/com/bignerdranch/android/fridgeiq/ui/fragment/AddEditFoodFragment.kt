@@ -4,8 +4,10 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bignerdranch.android.fridgeiq.R
@@ -24,7 +26,11 @@ class AddEditFoodFragment : Fragment() {
     private val args: AddEditFoodFragmentArgs by navArgs()
 
     private var selectedExpirationDate = Date()
-    private val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+    private val dateFormat = SimpleDateFormat("MM dd, yyyy", Locale.getDefault())
+
+    private lateinit var categoryAdapter: ArrayAdapter<String>
+    private lateinit var locationAdapter: ArrayAdapter<String>
+    private lateinit var unitAdapter: ArrayAdapter<String>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,13 +38,13 @@ class AddEditFoodFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddEditFoodBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupMenu()
         setupSpinners()
         setupDatePicker()
         populateFields()
@@ -48,6 +54,24 @@ class AddEditFoodFragment : Fragment() {
         calendar.add(Calendar.DAY_OF_YEAR, 7)
         selectedExpirationDate = calendar.time
         binding.textExpirationDate.text = dateFormat.format(selectedExpirationDate)
+    }
+
+    private fun setupMenu() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.add_edit_food_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_save -> {
+                        saveFoodItem()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setupSpinners() {
@@ -93,37 +117,23 @@ class AddEditFoodFragment : Fragment() {
         args.foodItem?.let { foodItem ->
             binding.apply {
                 editTextName.setText(foodItem.name)
-                editTextQuantity.setText(foodItem.quantity.toString())
-                editTextCost.setText(foodItem.estimatedCost.toString())
+                editTextQuantity.setText(foodItem.run { quantity.toString() })
+                editTextCost.setText(foodItem.run { estimatedCost.toString() })
                 editTextNotes.setText(foodItem.notes)
 
                 // Set spinner selections
-                val categoryPos = (spinnerCategory.adapter as ArrayAdapter<String>).getPosition(foodItem.category)
-                spinnerCategory.setSelection(categoryPos)
+                val categoryPos = categoryAdapter.getPosition(foodItem.category)
+                if (categoryPos >= 0) spinnerCategory.setSelection(categoryPos)
 
-                val locationPos = (spinnerStorageLocation.adapter as ArrayAdapter<String>).getPosition(foodItem.storageLocation)
-                spinnerStorageLocation.setSelection(locationPos)
+                val locationPos = locationAdapter.getPosition(foodItem.storageLocation)
+                if (locationPos >= 0) spinnerStorageLocation.setSelection(locationPos)
 
-                val unitPos = (spinnerUnit.adapter as ArrayAdapter<String>).getPosition(foodItem.unit)
-                spinnerUnit.setSelection(unitPos)
+                val unitPos = unitAdapter.getPosition(foodItem.unit)
+                if (unitPos >= 0) spinnerUnit.setSelection(unitPos)
 
                 selectedExpirationDate = foodItem.expirationDate
                 textExpirationDate.text = dateFormat.format(selectedExpirationDate)
             }
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.add_edit_food_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_save -> {
-                saveFoodItem()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 

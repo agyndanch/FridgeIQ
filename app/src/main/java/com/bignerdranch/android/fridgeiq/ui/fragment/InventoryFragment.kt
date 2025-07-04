@@ -2,14 +2,17 @@ package com.bignerdranch.android.fridgeiq.ui.fragment
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bignerdranch.android.fridgeiq.R
 import com.bignerdranch.android.fridgeiq.databinding.FragmentInventoryBinding
 import com.bignerdranch.android.fridgeiq.ui.adapter.FoodItemAdapter
 import com.bignerdranch.android.fridgeiq.ui.viewmodel.FoodItemViewModel
+import com.bignerdranch.android.fridgeiq.data.entity.FoodItem
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class InventoryFragment : Fragment() {
@@ -26,16 +29,38 @@ class InventoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentInventoryBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupMenu()
         setupRecyclerView()
         observeViewModel()
         setupFab()
+    }
+
+    private fun setupMenu() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.inventory_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_scan_barcode -> {
+                        findNavController().navigate(R.id.action_inventory_to_barcode_scanner)
+                        true
+                    }
+                    R.id.action_filter -> {
+                        // Show filter dialog - placeholder for future implementation
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setupRecyclerView() {
@@ -69,7 +94,7 @@ class InventoryFragment : Fragment() {
         }
     }
 
-    private fun showWasteReasonDialog(foodItem: com.bignerdranch.android.fridgeiq.data.entity.FoodItem) {
+    private fun showWasteReasonDialog(foodItem: FoodItem) {
         val reasons = arrayOf("Expired", "Spoiled", "Forgot about it", "Too much", "Other")
 
         MaterialAlertDialogBuilder(requireContext())
@@ -78,24 +103,6 @@ class InventoryFragment : Fragment() {
                 viewModel.markAsWasted(foodItem, reasons[which])
             }
             .show()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.inventory_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_scan_barcode -> {
-                findNavController().navigate(R.id.action_inventory_to_barcode_scanner)
-                true
-            }
-            R.id.action_filter -> {
-                // Show filter dialog
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     override fun onDestroyView() {

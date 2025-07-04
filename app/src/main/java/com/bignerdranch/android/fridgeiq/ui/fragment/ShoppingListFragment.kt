@@ -2,8 +2,10 @@ package com.bignerdranch.android.fridgeiq.ui.fragment
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bignerdranch.android.fridgeiq.R
@@ -26,16 +28,41 @@ class ShoppingListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentShoppingListBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupMenu()
         setupRecyclerView()
         observeViewModel()
         setupFab()
+    }
+
+    private fun setupMenu() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.shopping_list_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_clear_purchased -> {
+                        MaterialAlertDialogBuilder(requireContext())
+                            .setTitle("Clear Purchased Items")
+                            .setMessage("Remove all purchased items from the list?")
+                            .setPositiveButton("Clear") { _, _ ->
+                                viewModel.clearPurchasedItems()
+                            }
+                            .setNegativeButton("Cancel", null)
+                            .show()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setupRecyclerView() {
@@ -63,31 +90,6 @@ class ShoppingListFragment : Fragment() {
     private fun setupFab() {
         binding.fabAddItem.setOnClickListener {
             findNavController().navigate(R.id.action_shopping_list_to_add_edit_shopping_item)
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.shopping_list_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_clear_purchased -> {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Clear Purchased Items")
-                    .setMessage("Remove all purchased items from the list?")
-                    .setPositiveButton("Clear") { _, _ ->
-                        viewModel.clearPurchasedItems()
-                    }
-                    .setNegativeButton("Cancel", null)
-                    .show()
-                true
-            }
-            R.id.action_generate_smart_list -> {
-                // TODO: Implement smart list generation
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 

@@ -16,9 +16,6 @@ interface FoodItemDao {
     @Query("SELECT * FROM food_items WHERE category = :category AND isConsumed = 0")
     fun getItemsByCategory(category: String): LiveData<List<FoodItem>>
 
-    @Query("SELECT * FROM food_items WHERE storageLocation = :location AND isConsumed = 0")
-    fun getItemsByLocation(location: String): LiveData<List<FoodItem>>
-
     @Insert
     suspend fun insertFoodItem(foodItem: FoodItem): Long
 
@@ -30,7 +27,4 @@ interface FoodItemDao {
 
     @Query("SELECT DISTINCT category FROM food_items")
     fun getAllCategories(): LiveData<List<String>>
-
-    @Query("SELECT DISTINCT storageLocation FROM food_items")
-    fun getAllStorageLocations(): LiveData<List<String>>
 }

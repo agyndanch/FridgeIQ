@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bignerdranch.android.fridgeiq.databinding.FragmentAnalyticsBinding
 import com.bignerdranch.android.fridgeiq.ui.viewmodel.AnalyticsViewModel
-import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -42,7 +41,7 @@ class AnalyticsFragment : Fragment() {
         binding.chartWasteByCategory.apply {
             description.isEnabled = false
             legend.isEnabled = true
-            setDrawHoleEnabled(true)
+            isDrawHoleEnabled = true
             setHoleColor(android.R.color.transparent)
             setTransparentCircleColor(android.R.color.transparent)
             setDrawCenterText(true)
@@ -52,11 +51,11 @@ class AnalyticsFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.getMonthlyWasteCost().observe(viewLifecycleOwner) { cost ->
-            binding.textMonthlyCost.text = "$%.2f".format(cost)
+            "$%.2f".format(cost).also { binding.textMonthlyCost.text = it }
         }
 
         viewModel.getWeeklyWasteCount().observe(viewLifecycleOwner) { count ->
-            binding.textWeeklyCount.text = count.toString()
+            count.toString().also { binding.textWeeklyCount.text = it }
         }
 
         viewModel.allWasteEntries.observe(viewLifecycleOwner) { entries ->

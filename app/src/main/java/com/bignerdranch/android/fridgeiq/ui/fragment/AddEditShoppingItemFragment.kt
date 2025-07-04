@@ -3,8 +3,10 @@ package com.bignerdranch.android.fridgeiq.ui.fragment
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bignerdranch.android.fridgeiq.R
@@ -20,21 +22,42 @@ class AddEditShoppingItemFragment : Fragment() {
     private val viewModel: ShoppingListViewModel by viewModels()
     private val args: AddEditShoppingItemFragmentArgs by navArgs()
 
+    private lateinit var categoryAdapter: ArrayAdapter<String>
+    private lateinit var unitAdapter: ArrayAdapter<String>
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddEditShoppingItemBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupMenu()
         setupSpinners()
         populateFields()
+    }
+
+    private fun setupMenu() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.add_edit_food_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.action_save -> {
+                        saveShoppingItem()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setupSpinners() {
@@ -55,31 +78,17 @@ class AddEditShoppingItemFragment : Fragment() {
         args.shoppingItem?.let { item ->
             binding.apply {
                 editTextName.setText(item.name)
-                editTextQuantity.setText(item.quantity.toString())
-                editTextCost.setText(item.estimatedCost.toString())
+                editTextQuantity.setText(item.run { quantity.toString() })
+                editTextCost.setText(item.run { estimatedCost.toString() })
                 editTextNotes.setText(item.notes)
 
                 // Set spinner selections
-                val categoryPos = (spinnerCategory.adapter as ArrayAdapter<String>).getPosition(item.category)
-                spinnerCategory.setSelection(categoryPos)
+                val categoryPos = categoryAdapter.getPosition(item.category)
+                if (categoryPos >= 0) spinnerCategory.setSelection(categoryPos)
 
-                val unitPos = (spinnerUnit.adapter as ArrayAdapter<String>).getPosition(item.unit)
-                spinnerUnit.setSelection(unitPos)
+                val unitPos = unitAdapter.getPosition(item.unit)
+                if (unitPos >= 0) spinnerUnit.setSelection(unitPos)
             }
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.add_edit_food_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_save -> {
-                saveShoppingItem()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 

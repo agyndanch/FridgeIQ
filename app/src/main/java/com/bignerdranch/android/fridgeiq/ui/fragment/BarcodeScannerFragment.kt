@@ -127,6 +127,7 @@ class BarcodeScannerFragment : Fragment() {
 
         private val scanner = BarcodeScanning.getClient()
 
+        @ExperimentalGetImage
         override fun analyze(imageProxy: ImageProxy) {
             val mediaImage = imageProxy.image
             if (mediaImage != null) {

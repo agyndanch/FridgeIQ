@@ -10,6 +10,7 @@ import com.bignerdranch.android.fridgeiq.databinding.ItemFoodBinding
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 class FoodItemAdapter(
     private val onItemClick: (FoodItem) -> Unit,
@@ -47,7 +48,7 @@ class FoodItemAdapter(
                 )
 
                 textDaysLeft.text = when {
-                    daysUntilExpiration < 0 -> "Expired ${Math.abs(daysUntilExpiration)} days ago"
+                    daysUntilExpiration < 0 -> "Expired ${abs(daysUntilExpiration)} days ago"
                     daysUntilExpiration == 0L -> "Expires today"
                     daysUntilExpiration == 1L -> "Expires tomorrow"
                     else -> "Expires in $daysUntilExpiration days"

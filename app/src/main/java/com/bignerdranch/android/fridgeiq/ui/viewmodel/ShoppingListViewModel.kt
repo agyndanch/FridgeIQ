@@ -32,10 +32,6 @@ class ShoppingListViewModel(application: Application) : AndroidViewModel(applica
         repository.updateShoppingItem(item)
     }
 
-    fun deleteShoppingItem(item: ShoppingListItem) = viewModelScope.launch {
-        repository.deleteShoppingItem(item)
-    }
-
     fun clearPurchasedItems() = viewModelScope.launch {
         repository.clearPurchasedItems()
     }

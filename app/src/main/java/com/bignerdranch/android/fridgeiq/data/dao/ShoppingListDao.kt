@@ -9,9 +9,6 @@ interface ShoppingListDao {
     @Query("SELECT * FROM shopping_list ORDER BY isPurchased ASC, name ASC")
     fun getAllShoppingItems(): LiveData<List<ShoppingListItem>>
 
-    @Query("SELECT * FROM shopping_list WHERE isPurchased = 0")
-    fun getUnpurchasedItems(): LiveData<List<ShoppingListItem>>
-
     @Insert
     suspend fun insertShoppingItem(item: ShoppingListItem)
 

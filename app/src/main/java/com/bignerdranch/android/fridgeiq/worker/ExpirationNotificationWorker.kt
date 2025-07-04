@@ -13,7 +13,6 @@ import com.bignerdranch.android.fridgeiq.MainActivity
 import com.bignerdranch.android.fridgeiq.R
 import com.bignerdranch.android.fridgeiq.data.database.FridgeIQDatabase
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class ExpirationNotificationWorker(
     private val context: Context,
@@ -62,7 +61,7 @@ class ExpirationNotificationWorker(
         )
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.ic_notification_24)
             .setContentTitle("Food Expiring Soon!")
             .setContentText("You have $itemCount items expiring in the next 2 days")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

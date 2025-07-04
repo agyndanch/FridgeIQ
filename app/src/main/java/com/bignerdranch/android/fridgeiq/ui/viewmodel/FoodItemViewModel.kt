@@ -15,9 +15,9 @@ import java.util.Calendar
 class FoodItemViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: FridgeIQRepository
+    private val expiringItems: LiveData<List<FoodItem>>
+    private val allCategories: LiveData<List<String>>
     val allActiveFoodItems: LiveData<List<FoodItem>>
-    val expiringItems: LiveData<List<FoodItem>>
-    val allCategories: LiveData<List<String>>
 
     init {
         val database = FridgeIQDatabase.getDatabase(application)
@@ -44,10 +44,6 @@ class FoodItemViewModel(application: Application) : AndroidViewModel(application
         repository.updateFoodItem(foodItem)
     }
 
-    fun deleteFoodItem(foodItem: FoodItem) = viewModelScope.launch {
-        repository.deleteFoodItem(foodItem)
-    }
-
     fun markAsConsumed(foodItem: FoodItem) = viewModelScope.launch {
         repository.updateFoodItem(foodItem.copy(isConsumed = true))
     }
@@ -68,9 +64,5 @@ class FoodItemViewModel(application: Application) : AndroidViewModel(application
             unit = foodItem.unit
         )
         repository.insertWasteEntry(wasteEntry)
-    }
-
-    fun getItemsByCategory(category: String): LiveData<List<FoodItem>> {
-        return repository.getItemsByCategory(category)
     }
 }

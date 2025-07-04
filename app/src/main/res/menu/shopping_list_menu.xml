@@ -8,10 +8,4 @@
         android:title="Clear Purchased"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_generate_smart_list"
-        android:icon="@drawable/ic_auto_awesome_24"
-        android:title="Generate Smart List"
-        app:showAsAction="never" />
-
 </menu>

@@ -1,4 +1,4 @@
-package com.bignerdranch.android.fridgeiq
+package com.bignerdranch.android.fridgeiq.ui.fragment
 
 import android.os.Bundle
 import android.view.*
@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bignerdranch.android.fridgeiq.R
 import com.bignerdranch.android.fridgeiq.databinding.FragmentInventoryBinding
+import com.bignerdranch.android.fridgeiq.ui.adapter.FoodItemAdapter
+import com.bignerdranch.android.fridgeiq.ui.viewmodel.FoodItemViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class InventoryFragment : Fragment() {

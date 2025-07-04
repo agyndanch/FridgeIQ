@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_scan_barcode"
+        android:icon="@drawable/ic_qr_code_scanner_24"
+        android:title="Scan Barcode"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_filter"
+        android:icon="@drawable/ic_filter_24"
+        android:title="Filter"
+        app:showAsAction="never" />
+
+</menu>

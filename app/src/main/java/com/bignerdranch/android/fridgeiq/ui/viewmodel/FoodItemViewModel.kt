@@ -1,13 +1,13 @@
-package com.bignerdranch.android.fridgeiq
+package com.bignerdranch.android.fridgeiq.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.bignerdranch.android.fridgeiq.FridgeIQDatabase
-import com.bignerdranch.android.fridgeiq.FoodItem
-import com.bignerdranch.android.fridgeiq.WasteEntry
-import com.bignerdranch.android.fridgeiq.FridgeIQRepository
+import com.bignerdranch.android.fridgeiq.data.database.FridgeIQDatabase
+import com.bignerdranch.android.fridgeiq.data.entity.FoodItem
+import com.bignerdranch.android.fridgeiq.data.entity.WasteEntry
+import com.bignerdranch.android.fridgeiq.data.repository.FridgeIQRepository
 import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.Calendar

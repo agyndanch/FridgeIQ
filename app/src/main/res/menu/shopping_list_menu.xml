@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_clear_purchased"
+        android:icon="@drawable/ic_clear_24"
+        android:title="Clear Purchased"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_generate_smart_list"
+        android:icon="@drawable/ic_auto_awesome_24"
+        android:title="Generate Smart List"
+        app:showAsAction="never" />
+
+</menu>

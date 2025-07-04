@@ -1,8 +1,12 @@
-package com.bignerdranch.android.fridgeiq
+package com.bignerdranch.android.fridgeiq.data.repository
 
 import androidx.lifecycle.LiveData
-import com.bignerdranch.android.fridgeiq.*
-import com.bignerdranch.android.fridgeiq.*
+import com.bignerdranch.android.fridgeiq.data.dao.FoodItemDao
+import com.bignerdranch.android.fridgeiq.data.dao.ShoppingListDao
+import com.bignerdranch.android.fridgeiq.data.dao.WasteEntryDao
+import com.bignerdranch.android.fridgeiq.data.entity.FoodItem
+import com.bignerdranch.android.fridgeiq.data.entity.ShoppingListItem
+import com.bignerdranch.android.fridgeiq.data.entity.WasteEntry
 import java.util.Date
 
 class FridgeIQRepository(

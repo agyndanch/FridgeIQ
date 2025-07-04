@@ -1,12 +1,12 @@
-package com.bignerdranch.android.fridgeiq
+package com.bignerdranch.android.fridgeiq.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.bignerdranch.android.fridgeiq.FridgeIQDatabase
-import com.bignerdranch.android.fridgeiq.ShoppingListItem
-import com.bignerdranch.android.fridgeiq.FridgeIQRepository
+import com.bignerdranch.android.fridgeiq.data.database.FridgeIQDatabase
+import com.bignerdranch.android.fridgeiq.data.entity.ShoppingListItem
+import com.bignerdranch.android.fridgeiq.data.repository.FridgeIQRepository
 import kotlinx.coroutines.launch
 
 class ShoppingListViewModel(application: Application) : AndroidViewModel(application) {

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_inventory">
+
+    <fragment
+        android:id="@+id/navigation_inventory"
+        android:name="com.example.fridgeiq.ui.fragment.InventoryFragment"
+        android:label="Inventory"
+        tools:layout="@layout/fragment_inventory">
+        <action
+            android:id="@+id/action_inventory_to_add_edit_food"
+            app:destination="@id/addEditFoodFragment" />
+        <action
+            android:id="@+id/action_inventory_to_barcode_scanner"
+            app:destination="@id/barcodeScannerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_shopping_list"
+        android:name="com.example.fridgeiq.ui.fragment.ShoppingListFragment"
+        android:label="Shopping List"
+        tools:layout="@layout/fragment_shopping_list">
+        <action
+            android:id="@+id/action_shopping_list_to_add_edit_shopping_item"
+            app:destination="@id/addEditShoppingItemFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_analytics"
+        android:name="com.example.fridgeiq.ui.fragment.AnalyticsFragment"
+        android:label="Analytics"
+        tools:layout="@layout/fragment_analytics" />
+
+    <fragment
+        android:id="@+id/addEditFoodFragment"
+        android:name="com.example.fridgeiq.ui.fragment.AddEditFoodFragment"
+        android:label="Add Food Item"
+        tools:layout="@layout/fragment_add_edit_food">
+        <argument
+            android:name="foodItem"
+            android:defaultValue="@null"
+            app:argType="com.example.fridgeiq.data.entity.FoodItem"
+            app:nullable="true" />
+        <argument
+            android:name="barcode"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/barcodeScannerFragment"
+        android:name="com.example.fridgeiq.ui.fragment.BarcodeScannerFragment"
+        android:label="Scan Barcode"
+        tools:layout="@layout/fragment_barcode_scanner">
+        <action
+            android:id="@+id/action_barcode_scanner_to_add_edit_food"
+            app:destination="@id/addEditFoodFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEditShoppingItemFragment"
+        android:name="com.example.fridgeiq.ui.fragment.AddEditShoppingItemFragment"
+        android:label="Add Shopping Item"
+        tools:layout="@layout/fragment_add_edit_shopping_item">
+        <argument
+            android:name="shoppingItem"
+            android:defaultValue="@null"
+            app:argType="com.example.fridgeiq.data.entity.ShoppingListItem"
+            app:nullable="true" />
+    </fragment>
+
+</navigation>

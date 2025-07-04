@@ -1,11 +1,11 @@
-package com.bignerdranch.android.fridgeiq
+package com.bignerdranch.android.fridgeiq.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bignerdranch.android.fridgeiq.ShoppingListItem
+import com.bignerdranch.android.fridgeiq.data.entity.ShoppingListItem
 import com.bignerdranch.android.fridgeiq.databinding.ItemShoppingListBinding
 
 class ShoppingListAdapter(

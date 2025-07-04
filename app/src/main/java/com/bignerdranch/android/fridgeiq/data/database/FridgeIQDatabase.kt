@@ -1,13 +1,17 @@
-package com.bignerdranch.android.fridgeiq
+package com.bignerdranch.android.fridgeiq.data.database
 
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import android.content.Context
-import com.bignerdranch.android.fridgeiq.Converters
-import com.bignerdranch.android.fridgeiq.* // DAO
-import com.bignerdranch.android.fridgeiq.* // ENTITY
+import com.bignerdranch.android.fridgeiq.data.dao.FoodItemDao
+import com.bignerdranch.android.fridgeiq.data.dao.ShoppingListDao
+import com.bignerdranch.android.fridgeiq.data.dao.WasteEntryDao
+import com.bignerdranch.android.fridgeiq.data.converter.Converters
+import com.bignerdranch.android.fridgeiq.data.entity.FoodItem
+import com.bignerdranch.android.fridgeiq.data.entity.ShoppingListItem
+import com.bignerdranch.android.fridgeiq.data.entity.WasteEntry
 
 @Database(
     entities = [FoodItem::class, WasteEntry::class, ShoppingListItem::class],

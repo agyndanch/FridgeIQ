@@ -1,4 +1,4 @@
-package com.bignerdranch.android.fridgeiq
+package com.bignerdranch.android.fridgeiq.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,4 +1,4 @@
-package com.bignerdranch.android.fridgeiq
+package com.bignerdranch.android.fridgeiq.data.converter
 
 import androidx.room.TypeConverter
 import java.util.Date

@@ -17,16 +17,14 @@ class FoodItemViewModel : ViewModel() {
     private val repository = FridgeIQRepository.get()
 
     private val _allActiveFoodItems = MutableStateFlow<List<FoodItem>>(emptyList())
-    val allActiveFoodItems: StateFlow<List<FoodItem>> = _allActiveFoodItems.asStateFlow()
 
     private val _expiringItems = MutableStateFlow<List<FoodItem>>(emptyList())
     private val _allCategories = MutableStateFlow<List<String>>(emptyList())
 
-    private val _filteredFoodItems = MutableStateFlow<List<FoodItem>>(emptyList())
-    private var currentFilters = FilterCriteria()
-
     private val _displayedFoodItems = MutableStateFlow<List<FoodItem>>(emptyList())
     val displayedFoodItems: StateFlow<List<FoodItem>> = _displayedFoodItems.asStateFlow()
+
+    private var currentFilters = FilterCriteria()
     private var hasActiveFilters = false
 
     init {

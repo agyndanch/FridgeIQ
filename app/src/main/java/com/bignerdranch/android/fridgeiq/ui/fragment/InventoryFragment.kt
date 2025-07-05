@@ -90,7 +90,7 @@ class InventoryFragment : Fragment() {
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.allActiveFoodItems.collect { items ->
+                viewModel.displayedFoodItems.collect { items ->
                     adapter.submitList(items)
                     binding.textEmptyState.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
                 }

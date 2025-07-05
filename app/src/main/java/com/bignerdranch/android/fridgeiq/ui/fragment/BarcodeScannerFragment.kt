@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bignerdranch.android.fridgeiq.databinding.FragmentBarcodeScannerBinding
 import com.google.mlkit.vision.barcode.BarcodeScanning
-import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -24,7 +23,6 @@ class BarcodeScannerFragment : Fragment() {
     private var _binding: FragmentBarcodeScannerBinding? = null
     private val binding get() = _binding!!
 
-    private var imageCapture: ImageCapture? = null
     private var imageAnalyzer: ImageAnalysis? = null
     private lateinit var cameraExecutor: ExecutorService
 
@@ -60,7 +58,8 @@ class BarcodeScannerFragment : Fragment() {
         }
 
         binding.buttonManualEntry.setOnClickListener {
-            findNavController().navigateUp()
+            val action = BarcodeScannerFragmentDirections.actionBarcodeScannerToAddEditFood(null, "manual_entry")
+            findNavController().navigate(action)
         }
     }
 

@@ -178,7 +178,11 @@ class AddEditFoodFragment : Fragment() {
             viewModel.insertFoodItem(foodItem)
         }
 
-        findNavController().navigateUp()
+        if (args.barcode == "manual_entry") {
+            findNavController().popBackStack(R.id.navigation_inventory, false)
+        } else {
+            findNavController().navigateUp()
+        }
     }
 
     override fun onDestroyView() {

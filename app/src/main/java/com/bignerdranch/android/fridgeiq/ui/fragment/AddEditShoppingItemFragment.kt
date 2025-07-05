@@ -63,13 +63,13 @@ class AddEditShoppingItemFragment : Fragment() {
     private fun setupSpinners() {
         // Categories
         val categories = arrayOf("Dairy", "Meat", "Vegetables", "Fruits", "Pantry", "Frozen", "Beverages", "Other")
-        val categoryAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
+        categoryAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerCategory.adapter = categoryAdapter
 
         // Units
         val units = arrayOf("piece", "lb", "oz", "kg", "g", "cup", "tbsp", "tsp", "bottle", "can", "box", "bag")
-        val unitAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, units)
+        unitAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, units)
         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerUnit.adapter = unitAdapter
     }

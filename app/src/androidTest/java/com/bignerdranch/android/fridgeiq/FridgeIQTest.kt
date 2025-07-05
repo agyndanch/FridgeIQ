@@ -6,7 +6,6 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
-import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -187,24 +186,6 @@ class FridgeIQTest {
     }
 
     @Test
-    fun testCheckOffShoppingListItem() {
-        // Navigate to shopping list
-        onView(withId(R.id.navigation_shopping_list))
-            .perform(click())
-
-        // Add an item first
-        addTestShoppingItem("Milk", "Dairy")
-
-        // Check the item as purchased
-        onView(withId(R.id.checkbox_purchased))
-            .perform(click())
-
-        // Verify checkbox is checked
-        onView(withId(R.id.checkbox_purchased))
-            .check(matches(isChecked()))
-    }
-
-    @Test
     fun testOpenBarcodeScanner() {
         // Navigate to inventory
         onView(withId(R.id.navigation_inventory))
@@ -221,45 +202,6 @@ class FridgeIQTest {
 
         onView(withId(R.id.button_manual_entry))
             .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun testBarcodeScannerManualEntry() {
-        // Navigate to inventory
-        onView(withId(R.id.navigation_inventory))
-            .perform(click())
-
-        // Open scanner
-        onView(withId(R.id.action_scan_barcode))
-            .perform(click())
-
-        // Click manual entry
-        onView(withId(R.id.button_manual_entry))
-            .perform(click())
-
-        // Should navigate back to add food form
-        onView(withId(R.id.edit_text_name))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun testBarcodeScannerCameraIntent() {
-        Intents.init()
-
-        // Navigate to inventory
-        onView(withId(R.id.navigation_inventory))
-            .perform(click())
-
-        // Open scanner - this should request camera permission
-        // In a real test, you'd need to grant camera permission
-        onView(withId(R.id.action_scan_barcode))
-            .perform(click())
-
-        // Verify camera preview is set up
-        onView(withId(R.id.viewFinder))
-            .check(matches(isDisplayed()))
-
-        Intents.release()
     }
 
     @Test

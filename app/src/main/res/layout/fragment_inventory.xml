@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="No items in inventory.\nTap the + button to add items."
+        android:text="@string/no_items_in_inventory_ntap_the_button_to_add_items"
         android:textAlignment="center"
         android:textSize="18sp"
         android:visibility="gone" />
@@ -35,7 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="Add food item"
+        android:backgroundTint="@color/orange_dark"
+        android:contentDescription="@string/add_food_item"
         app:srcCompat="@drawable/ic_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

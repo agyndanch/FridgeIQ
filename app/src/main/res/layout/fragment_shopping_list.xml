@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Your shopping list is empty.\nTap the + button to add items."
+        android:text="@string/your_shopping_list_is_empty_ntap_the_button_to_add_items"
         android:textAlignment="center"
         android:textSize="18sp"
         android:visibility="gone" />
@@ -28,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="Add shopping item"
+        android:backgroundTint="@color/orange_dark"
+        android:contentDescription="@string/add_shopping_item"
         app:srcCompat="@drawable/ic_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

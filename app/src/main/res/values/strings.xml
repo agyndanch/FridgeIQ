@@ -21,8 +21,8 @@
     <string name="unit">Unit</string>
     <string name="storage_location">Storage Location</string>
     <string name="expiration_date">Expiration Date</string>
-    <string name="estimated_cost">Estimated Cost</string>
-    <string name="notes">Notes</string>
+    <string name="estimated_cost">Estimated Cost ($)</string>
+    <string name="notes">Notes (optional)</string>
     <string name="monthly_waste_cost">Monthly Waste Cost</string>
     <string name="weekly_waste_items">Weekly Waste Items</string>
     <string name="waste_by_category">Waste by Category</string>
@@ -45,4 +45,11 @@
     <string name="waste_reason_forgot">Forgot about it</string>
     <string name="waste_reason_too_much">Too much</string>
     <string name="waste_reason_other">Other</string>
+    <string name="_1">1</string>
+    <string name="tips">• Check expiration dates when shopping\n• Use the first-in, first-out rule\n• Store items in optimal conditions\n• Plan meals based on what you have\n• Use FridgeIQ notifications effectively</string>
+    <string name="item_name">Item Name</string>
+    <string name="position_barcode_within_the_frame">Position barcode within the frame</string>
+    <string name="no_items_in_inventory_ntap_the_button_to_add_items">No items in inventory.\nTap the + button to add items.</string>
+    <string name="your_shopping_list_is_empty_ntap_the_button_to_add_items">Your shopping list is empty.\nTap the + button to add items.</string>
+    <string name="add_shopping_item">Add shopping item</string>
 </resources>

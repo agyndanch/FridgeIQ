@@ -13,7 +13,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Item Name">
+            android:hint="@string/item_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_name"
@@ -27,12 +27,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Category">
+            android:hint="@string/category">
 
             <Spinner
                 android:id="@+id/spinner_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="48dp"
+                android:minHeight="48dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -40,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -47,14 +49,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:hint="Quantity">
+                android:hint="@string/quantity">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:text="1" />
+                    android:text="@string/_1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,12 +65,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:hint="Unit">
+                android:hint="@string/unit">
 
                 <Spinner
                     android:id="@+id/spinner_unit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="48dp"
+                    android:minHeight="48dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Estimated Cost ($)">
+            android:hint="@string/estimated_cost">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_cost"
@@ -92,14 +95,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Notes (Optional)">
+            android:hint="@string/notes">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_notes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
-                android:lines="3" />
+                android:lines="2" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

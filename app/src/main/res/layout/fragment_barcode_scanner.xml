@@ -27,7 +27,7 @@
         android:background="@drawable/rounded_background"
         android:gravity="center"
         android:padding="16dp"
-        android:text="Position barcode within the frame"
+        android:text="@string/position_barcode_within_the_frame"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Manual Entry"
+        android:backgroundTint="@color/green_dark"
+        android:text="@string/manual_entry"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

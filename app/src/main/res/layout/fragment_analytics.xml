@@ -33,7 +33,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Monthly Waste Cost"
+                        android:text="@string/monthly_waste_cost"
                         android:textSize="14sp" />
 
                     <TextView
@@ -63,7 +63,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Weekly Waste Items"
+                        android:text="@string/weekly_waste_items"
                         android:textSize="14sp" />
 
                     <TextView
@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="@android:color/holo_orange_dark"
+                        android:textColor="@color/orange_dark"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         tools:text="8" />
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="Waste by Category"
+                    android:text="@string/waste_by_category"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -126,14 +126,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="Tips to Reduce Waste"
+                    android:text="@string/tips_to_reduce_waste"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• Check expiration dates when shopping\n• Use the first-in, first-out rule\n• Store items in optimal conditions\n• Plan meals based on what you have\n• Use FridgeIQ notifications effectively"
+                    android:text="@string/tips"
                     android:textSize="14sp" />
 
             </LinearLayout>

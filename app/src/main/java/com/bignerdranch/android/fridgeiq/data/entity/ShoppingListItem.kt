@@ -2,8 +2,11 @@ package com.bignerdranch.android.fridgeiq.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "shopping_list")
+@Parcelize
 data class ShoppingListItem(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
@@ -15,4 +18,4 @@ data class ShoppingListItem(
     val isGenerated: Boolean = false,
     val estimatedCost: Double = 0.0,
     val notes: String? = null
-)
+) : Parcelable

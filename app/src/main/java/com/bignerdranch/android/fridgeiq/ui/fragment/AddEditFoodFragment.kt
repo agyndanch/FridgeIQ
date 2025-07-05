@@ -26,7 +26,7 @@ class AddEditFoodFragment : Fragment() {
     private val args: AddEditFoodFragmentArgs by navArgs()
 
     private var selectedExpirationDate = Date()
-    private val dateFormat = SimpleDateFormat("MM dd, yyyy", Locale.getDefault())
+    private val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
 
     private lateinit var categoryAdapter: ArrayAdapter<String>
     private lateinit var locationAdapter: ArrayAdapter<String>

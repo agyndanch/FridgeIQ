@@ -22,6 +22,9 @@ FridgeIQ is an Android app designed to help users efficiently manage their food 
 3. **Run the Application**
    - Connect an Android device or start an emulator (API 32+)
    - Click "Run"
+  
+## 📺 Demo Video
+https://github.com/user-attachments/assets/2b576d51-ff3e-48bf-97fb-9c44ed970845
 
 ## 🌟 Features
 
@@ -100,3 +103,13 @@ FridgeIQ is an Android app designed to help users efficiently manage their food 
 - [ ] Smart Shopping: Auto-generate shopping lists from usage patterns
 - [ ] Better Analytics: Enhanced waste tracking and cost optimization
 - [ ] Recipe Suggestions: Recommend recipes based on available ingredients
+
+## 📸 Screenshots
+![inventory](https://github.com/user-attachments/assets/df0a3589-2518-4110-b484-6dbedcc779a0)
+![inventory_empty](https://github.com/user-attachments/assets/faa11931-da9e-489b-bd5c-1095cf6fe0b0)
+![add_food](https://github.com/user-attachments/assets/09227d1a-887c-42fc-8a5c-a09eee904027)
+![filter_inventory](https://github.com/user-attachments/assets/1d638ddd-3a68-4ab0-ac4b-5c3051c22ea5)
+![shopping_empty](https://github.com/user-attachments/assets/746cdb6d-d166-4426-809a-52492fde45b6)
+![shopping](https://github.com/user-attachments/assets/e980de81-ade7-47fc-b6b2-09b2539320d7)
+![barcode_scanner](https://github.com/user-attachments/assets/1abd2c28-88a8-4144-bada-646115a5de73)
+![analytics](https://github.com/user-attachments/assets/1e41b82b-2ed9-42a8-ac7a-20b06c8ad075)

@@ -1,6 +1,6 @@
 package com.bignerdranch.android.fridgeiq.data.dao
 
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.flow.Flow
 import androidx.room.*
 import com.bignerdranch.android.fridgeiq.data.entity.WasteEntry
 import java.util.Date
@@ -8,7 +8,7 @@ import java.util.Date
 @Dao
 interface WasteEntryDao {
     @Query("SELECT * FROM waste_entries ORDER BY wasteDate DESC")
-    fun getAllWasteEntries(): LiveData<List<WasteEntry>>
+    fun getAllWasteEntries(): Flow<List<WasteEntry>>
 
     @Query("SELECT SUM(estimatedCost) FROM waste_entries WHERE wasteDate >= :startDate")
     suspend fun getTotalWasteCostSince(startDate: Date): Double?

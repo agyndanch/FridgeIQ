@@ -6,6 +6,8 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bignerdranch.android.fridgeiq.R
@@ -13,6 +15,7 @@ import com.bignerdranch.android.fridgeiq.databinding.FragmentShoppingListBinding
 import com.bignerdranch.android.fridgeiq.ui.adapter.ShoppingListAdapter
 import com.bignerdranch.android.fridgeiq.ui.viewmodel.ShoppingListViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.launch
 
 class ShoppingListFragment : Fragment() {
 
@@ -81,9 +84,13 @@ class ShoppingListFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.allShoppingItems.observe(viewLifecycleOwner) { items ->
-            adapter.submitList(items)
-            binding.textEmptyState.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allShoppingItems.collect { items ->
+                    adapter.submitList(items)
+                    binding.textEmptyState.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+                }
+            }
         }
     }
 

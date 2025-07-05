@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.bignerdranch.android.fridgeiq.databinding.FragmentAnalyticsBinding
 import com.bignerdranch.android.fridgeiq.ui.viewmodel.AnalyticsViewModel
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import kotlinx.coroutines.launch
 
 class AnalyticsFragment : Fragment() {
 
@@ -50,16 +54,28 @@ class AnalyticsFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.getMonthlyWasteCost().observe(viewLifecycleOwner) { cost ->
-            "$%.2f".format(cost).also { binding.textMonthlyCost.text = it }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.monthlyWasteCost.collect { cost ->
+                    "$%.2f".format(cost).also { binding.textMonthlyCost.text = it }
+                }
+            }
         }
 
-        viewModel.getWeeklyWasteCount().observe(viewLifecycleOwner) { count ->
-            count.toString().also { binding.textWeeklyCount.text = it }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.weeklyWasteCount.collect { count ->
+                    count.toString().also { binding.textWeeklyCount.text = it }
+                }
+            }
         }
 
-        viewModel.allWasteEntries.observe(viewLifecycleOwner) { entries ->
-            updateWasteChart(entries)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allWasteEntries.collect { entries ->
+                    updateWasteChart(entries)
+                }
+            }
         }
     }
 

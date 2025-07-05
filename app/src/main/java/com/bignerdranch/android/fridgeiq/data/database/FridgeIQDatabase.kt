@@ -35,7 +35,7 @@ abstract class FridgeIQDatabase : RoomDatabase() {
                     context.applicationContext,
                     FridgeIQDatabase::class.java,
                     "fridgeiq_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }

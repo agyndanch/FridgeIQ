@@ -1,39 +1,49 @@
 package com.bignerdranch.android.fridgeiq.ui.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bignerdranch.android.fridgeiq.data.database.FridgeIQDatabase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import com.bignerdranch.android.fridgeiq.data.entity.FoodItem
 import com.bignerdranch.android.fridgeiq.data.entity.WasteEntry
 import com.bignerdranch.android.fridgeiq.data.repository.FridgeIQRepository
-import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.Calendar
 
-class FoodItemViewModel(application: Application) : AndroidViewModel(application) {
+class FoodItemViewModel : ViewModel() {
 
-    private val repository: FridgeIQRepository
-    private val expiringItems: LiveData<List<FoodItem>>
-    private val allCategories: LiveData<List<String>>
-    val allActiveFoodItems: LiveData<List<FoodItem>>
+    private val repository = FridgeIQRepository.get()
+
+    private val _allActiveFoodItems = MutableStateFlow<List<FoodItem>>(emptyList())
+    val allActiveFoodItems: StateFlow<List<FoodItem>> = _allActiveFoodItems.asStateFlow()
+
+    private val _expiringItems = MutableStateFlow<List<FoodItem>>(emptyList())
+
+    private val _allCategories = MutableStateFlow<List<String>>(emptyList())
 
     init {
-        val database = FridgeIQDatabase.getDatabase(application)
-        repository = FridgeIQRepository(
-            database.foodItemDao(),
-            database.wasteEntryDao(),
-            database.shoppingListDao()
-        )
-        allActiveFoodItems = repository.getAllActiveFoodItems()
+        viewModelScope.launch {
+            repository.getAllActiveFoodItems().collect {
+                _allActiveFoodItems.value = it
+            }
+        }
 
-        // Get items expiring in the next 3 days
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_YEAR, 3)
-        expiringItems = repository.getExpiringItems(calendar.time)
+        viewModelScope.launch {
+            // Get items expiring in the next 3 days
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DAY_OF_YEAR, 3)
+            repository.getExpiringItems(calendar.time).collect {
+                _expiringItems.value = it
+            }
+        }
 
-        allCategories = repository.getAllCategories()
+        viewModelScope.launch {
+            repository.getAllCategories().collect {
+                _allCategories.value = it
+            }
+        }
     }
 
     fun insertFoodItem(foodItem: FoodItem) = viewModelScope.launch {

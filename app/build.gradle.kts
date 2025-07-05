@@ -46,9 +46,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
-    // androidTestImplementation(libs.androidx.junit)
-    // androidTestImplementation(libs.androidx.espresso.core)
-
 
     // Additional dependencies from other Gradle
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -96,14 +93,11 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.9.0")
 
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.1")
-
-    androidTestImplementation("androidx.test:runner:1.5.2") // for P2B testing
-    androidTestUtil("androidx.test:orchestrator:1.4.2") // for P2B testing
-
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestUtil("androidx.test:orchestrator:1.4.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1") // Project 2C testing
-
-    androidTestImplementation("androidx.navigation:navigation-testing:2.6.0") // Project 2 testing
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.6.0")
 }

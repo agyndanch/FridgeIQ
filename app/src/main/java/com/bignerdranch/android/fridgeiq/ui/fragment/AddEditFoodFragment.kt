@@ -47,13 +47,14 @@ class AddEditFoodFragment : Fragment() {
         setupMenu()
         setupSpinners()
         setupDatePicker()
-        populateFields()
 
         // Set default expiration date to 7 days from now
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DAY_OF_YEAR, 7)
         selectedExpirationDate = calendar.time
         binding.textExpirationDate.text = dateFormat.format(selectedExpirationDate)
+
+        populateFields()
     }
 
     private fun setupMenu() {
@@ -77,19 +78,19 @@ class AddEditFoodFragment : Fragment() {
     private fun setupSpinners() {
         // Categories
         val categories = arrayOf("Dairy", "Meat", "Vegetables", "Fruits", "Pantry", "Frozen", "Beverages", "Other")
-        val categoryAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
+        categoryAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerCategory.adapter = categoryAdapter
 
         // Storage locations
         val locations = arrayOf("Refrigerator", "Freezer", "Pantry", "Counter", "Other")
-        val locationAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, locations)
+        locationAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, locations)
         locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerStorageLocation.adapter = locationAdapter
 
         // Units
         val units = arrayOf("piece", "lb", "oz", "kg", "g", "cup", "tbsp", "tsp", "bottle", "can", "box", "bag")
-        val unitAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, units)
+        unitAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, units)
         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerUnit.adapter = unitAdapter
     }

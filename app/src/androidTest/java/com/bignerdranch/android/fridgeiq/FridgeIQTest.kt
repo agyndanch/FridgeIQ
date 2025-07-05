@@ -32,10 +32,6 @@ class FridgeIQTest {
         scenario.close()
     }
 
-    // ===========================================
-    // NAVIGATION TESTS
-    // ===========================================
-
     @Test
     fun testBottomNavigationInventoryTab() {
         onView(withId(R.id.navigation_inventory))
@@ -62,10 +58,6 @@ class FridgeIQTest {
         onView(withId(R.id.chart_waste_by_category))
             .check(matches(isDisplayed()))
     }
-
-    // ===========================================
-    // FOOD ITEM MANAGEMENT TESTS
-    // ===========================================
 
     @Test
     fun testAddNewFoodItemViaMenAction() {
@@ -152,10 +144,6 @@ class FridgeIQTest {
         onView(withText("Edited Item"))
             .check(matches(isDisplayed()))
     }
-
-    // ===========================================
-    // SHOPPING LIST TESTS
-    // ===========================================
 
     @Test
     fun testAddNewShoppingListItem() {
@@ -274,10 +262,6 @@ class FridgeIQTest {
         Intents.release()
     }
 
-    // ===========================================
-    // FILTER TESTS
-    // ===========================================
-
     @Test
     fun testInventoryFilterDialog() {
         // Navigate to inventory
@@ -319,10 +303,6 @@ class FridgeIQTest {
         // All items should be visible again
     }
 
-    // ===========================================
-    // ANALYTICS TESTS
-    // ===========================================
-
     @Test
     fun testAnalyticsDataDisplay() {
         // Navigate to analytics
@@ -355,10 +335,6 @@ class FridgeIQTest {
         onView(withId(R.id.recycler_view_inventory))
             .check(matches(isDisplayed()))
     }
-
-    // ===========================================
-    // HELPER METHODS
-    // ===========================================
 
     private fun addTestFoodItem(name: String, category: String) {
         onView(withId(R.id.navigation_inventory)).perform(click())

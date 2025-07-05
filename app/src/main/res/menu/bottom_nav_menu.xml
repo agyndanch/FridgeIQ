@@ -4,16 +4,16 @@
     <item
         android:id="@+id/navigation_inventory"
         android:icon="@drawable/ic_inventory_24"
-        android:title="Inventory" />
+        android:title="@string/navigation_inventory" />
 
     <item
         android:id="@+id/navigation_shopping_list"
         android:icon="@drawable/ic_shopping_cart_24"
-        android:title="Shopping List" />
+        android:title="@string/navigation_shopping_list" />
 
     <item
         android:id="@+id/navigation_analytics"
         android:icon="@drawable/ic_analytics_24"
-        android:title="Analytics" />
+        android:title="@string/navigation_analytics" />
 
 </menu>

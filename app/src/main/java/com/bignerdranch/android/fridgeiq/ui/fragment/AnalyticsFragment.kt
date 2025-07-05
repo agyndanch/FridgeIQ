@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.bignerdranch.android.fridgeiq.data.entity.WasteEntry
 import com.bignerdranch.android.fridgeiq.databinding.FragmentAnalyticsBinding
 import com.bignerdranch.android.fridgeiq.ui.viewmodel.AnalyticsViewModel
 import com.github.mikephil.charting.data.PieData
@@ -41,7 +42,6 @@ class AnalyticsFragment : Fragment() {
     }
 
     private fun setupCharts() {
-        // Configure pie chart for waste categories
         binding.chartWasteByCategory.apply {
             description.isEnabled = false
             legend.isEnabled = true
@@ -79,7 +79,7 @@ class AnalyticsFragment : Fragment() {
         }
     }
 
-    private fun updateWasteChart(entries: List<com.bignerdranch.android.fridgeiq.data.entity.WasteEntry>) {
+    private fun updateWasteChart(entries: List<WasteEntry>) {
         val categoryMap = entries.groupBy { it.category }
             .mapValues { (_, items) -> items.sumOf { it.estimatedCost } }
 
@@ -87,11 +87,26 @@ class AnalyticsFragment : Fragment() {
             PieEntry(cost.toFloat(), category)
         }
 
-        val dataSet = PieDataSet(pieEntries, "Waste by Category")
-        dataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
+        if (pieEntries.isNotEmpty()) {
+            val dataSet = PieDataSet(pieEntries, "").apply {
+                colors = ColorTemplate.MATERIAL_COLORS.toList()
+                valueTextSize = 16f
+                valueTextColor = android.graphics.Color.BLACK
 
-        val pieData = PieData(dataSet)
-        binding.chartWasteByCategory.data = pieData
+                sliceSpace = 2f
+                selectionShift = 8f
+            }
+
+            val pieData = PieData(dataSet).apply {
+                setValueTextSize(16f)
+                setValueTextColor(android.graphics.Color.BLACK)
+            }
+
+            binding.chartWasteByCategory.data = pieData
+        } else {
+            binding.chartWasteByCategory.data = null
+        }
+
         binding.chartWasteByCategory.invalidate()
     }
 

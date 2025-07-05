@@ -20,13 +20,20 @@ class FoodItemViewModel : ViewModel() {
     val allActiveFoodItems: StateFlow<List<FoodItem>> = _allActiveFoodItems.asStateFlow()
 
     private val _expiringItems = MutableStateFlow<List<FoodItem>>(emptyList())
-
     private val _allCategories = MutableStateFlow<List<String>>(emptyList())
+
+    private val _filteredFoodItems = MutableStateFlow<List<FoodItem>>(emptyList())
+    private var currentFilters = FilterCriteria()
+
+    private val _displayedFoodItems = MutableStateFlow<List<FoodItem>>(emptyList())
+    val displayedFoodItems: StateFlow<List<FoodItem>> = _displayedFoodItems.asStateFlow()
+    private var hasActiveFilters = false
 
     init {
         viewModelScope.launch {
-            repository.getAllActiveFoodItems().collect {
-                _allActiveFoodItems.value = it
+            repository.getAllActiveFoodItems().collect { items ->
+                _allActiveFoodItems.value = items
+                applyCurrentFilters()
             }
         }
 
@@ -74,5 +81,53 @@ class FoodItemViewModel : ViewModel() {
             unit = foodItem.unit
         )
         repository.insertWasteEntry(wasteEntry)
+    }
+
+    data class FilterCriteria(
+        val category: String? = null,
+        val location: String? = null,
+        val expiringOnly: Boolean = false
+    )
+
+    fun applyFilters(category: String?, location: String?, expiringOnly: Boolean) {
+        currentFilters = FilterCriteria(category, location, expiringOnly)
+        hasActiveFilters = category != null || location != null || expiringOnly
+        applyCurrentFilters()
+    }
+
+    fun clearFilters() {
+        currentFilters = FilterCriteria()
+        hasActiveFilters = false
+        applyCurrentFilters()
+    }
+
+    private fun applyCurrentFilters() {
+        val allItems = _allActiveFoodItems.value
+
+        if (!hasActiveFilters) {
+            _displayedFoodItems.value = allItems
+            return
+        }
+
+        val filtered = allItems.filter { item ->
+            val categoryMatch = currentFilters.category?.let {
+                item.category == it
+            } ?: true
+
+            val locationMatch = currentFilters.location?.let {
+                item.storageLocation == it
+            } ?: true
+
+            val expiringMatch = if (currentFilters.expiringOnly) {
+                val threeDaysFromNow = Calendar.getInstance().apply {
+                    add(Calendar.DAY_OF_YEAR, 3)
+                }.time
+                item.expirationDate.before(threeDaysFromNow) || item.expirationDate == threeDaysFromNow
+            } else true
+
+            categoryMatch && locationMatch && expiringMatch
+        }
+
+        _displayedFoodItems.value = filtered
     }
 }

@@ -52,4 +52,5 @@
     <string name="no_items_in_inventory_ntap_the_button_to_add_items">No items in inventory.\nTap the + button to add items.</string>
     <string name="your_shopping_list_is_empty_ntap_the_button_to_add_items">Your shopping list is empty.\nTap the + button to add items.</string>
     <string name="add_shopping_item">Add shopping item</string>
+    <string name="show_only_items_expiring_in_3_days">Show only items expiring in 3 days</string>
 </resources>

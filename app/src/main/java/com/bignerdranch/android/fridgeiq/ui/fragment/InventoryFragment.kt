@@ -2,6 +2,9 @@ package com.bignerdranch.android.fridgeiq.ui.fragment
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ArrayAdapter
+import android.widget.CheckBox
+import android.widget.Spinner
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -57,7 +60,7 @@ class InventoryFragment : Fragment() {
                         true
                     }
                     R.id.action_filter -> {
-                        // Show filter dialog - placeholder for future implementation
+                        showFilterDialog()
                         true
                     }
                     else -> false
@@ -109,6 +112,43 @@ class InventoryFragment : Fragment() {
             .setItems(reasons) { _, which ->
                 viewModel.markAsWasted(foodItem, reasons[which])
             }
+            .show()
+    }
+
+    private fun showFilterDialog() {
+        val categories = arrayOf("All Categories", "Dairy", "Meat", "Vegetables", "Fruits", "Pantry", "Frozen", "Beverages", "Other")
+        val locations = arrayOf("All Locations", "Refrigerator", "Freezer", "Pantry", "Counter", "Other")
+
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_filter, null)
+        val categorySpinner = dialogView.findViewById<Spinner>(R.id.spinner_filter_category)
+        val locationSpinner = dialogView.findViewById<Spinner>(R.id.spinner_filter_location)
+        val expiringOnlyCheckbox = dialogView.findViewById<CheckBox>(R.id.checkbox_expiring_only)
+
+        // Setup spinners
+        val categoryAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categorySpinner.adapter = categoryAdapter
+
+        val locationAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, locations)
+        locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        locationSpinner.adapter = locationAdapter
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Filter Items")
+            .setView(dialogView)
+            .setPositiveButton("Apply") { _, _ ->
+                val selectedCategory = if (categorySpinner.selectedItemPosition == 0) null
+                else categories[categorySpinner.selectedItemPosition]
+                val selectedLocation = if (locationSpinner.selectedItemPosition == 0) null
+                else locations[locationSpinner.selectedItemPosition]
+                val expiringOnly = expiringOnlyCheckbox.isChecked
+
+                viewModel.applyFilters(selectedCategory, selectedLocation, expiringOnly)
+            }
+            .setNegativeButton("Clear") { _, _ ->
+                viewModel.clearFilters()
+            }
+            .setNeutralButton("Cancel", null)
             .show()
     }
 
